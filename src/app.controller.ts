@@ -8,8 +8,9 @@ import {
     Delete,
 } from '@nestjs/common';
 
-import {User as UserModel } from '@prisma/client';
+import {User as UserModel} from '@prisma/client';
 import {EmailService} from "./email/email.service";
+
 
 @Controller()
 export class AppController {
@@ -21,7 +22,12 @@ export class AppController {
 
     @Post('user')
     async signupUser(
-        @Body() userData: { name?: string; email: string },
+        @Body() userData: {
+            email: string
+            userName: string
+            firstName?: string | null
+            lastName?: string | null
+        },
     ): Promise<UserModel> {
         return this.emailService.createUser(userData);
     }
